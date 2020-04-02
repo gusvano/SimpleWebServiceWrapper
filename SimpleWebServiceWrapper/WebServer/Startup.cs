@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.Hosting;
 
-namespace rmWebServiceWrapper.WebServer
+namespace SimpleWebServiceWrapper.WebServer
 {
    public class Startup
    {
@@ -23,11 +20,30 @@ namespace rmWebServiceWrapper.WebServer
       {
          services.Configure<KestrelServerOptions>(
             Configuration.GetSection("Kestrel"));
+
+         services.AddControllers()
+                 .AddJsonOptions(options =>
+                 {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                    options.JsonSerializerOptions.WriteIndented = true;
+                 });
       }
 
       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
       {
-         
+         if (env.IsDevelopment())
+         {
+            app.UseDeveloperExceptionPage();
+         }
+
+         app.UseHttpsRedirection();
+
+         app.UseRouting();
+
+         app.UseEndpoints(endpoints =>
+         {
+            endpoints.MapControllers();
+         });
       }
    }
 }

@@ -1,12 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>dotnet-rmWebServiceWrapper-B3BED4E7-FE29-4D04-9CEA-CFDB70ECCCEC</UserSecretsId>
-  </PropertyGroup>
+   <PropertyGroup>
+      <TargetFramework>netcoreapp3.1</TargetFramework>
+      <UserSecretsId>dotnet-SimpleWebServiceWrapper-B3BED4E7-FE29-4D04-9CEA-CFDB70ECCCEC</UserSecretsId>
+      <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+      <Deterministic>false</Deterministic>
+   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Core" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
-  </ItemGroup>
+   <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Core" Version="2.2.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+   </ItemGroup>
 </Project>

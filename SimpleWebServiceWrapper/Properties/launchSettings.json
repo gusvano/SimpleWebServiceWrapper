@@ -1,6 +1,6 @@
-﻿{
+{
   "profiles": {
-    "rmWebServiceWrapper": {
+    "SimpleWebServiceWrapper": {
       "commandName": "Project",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"

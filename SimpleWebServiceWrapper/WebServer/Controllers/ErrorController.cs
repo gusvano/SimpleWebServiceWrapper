@@ -7,6 +7,7 @@ namespace SimpleWebServiceWrapper.WebServer.Controllers
    [Produces(MediaTypeNames.Application.Json)]
    public class ErrorController : ControllerBase
    {
+      [HttpGet]
       [Route("{*url}", Order = 999)]
       public IActionResult InvalidResource()
       {

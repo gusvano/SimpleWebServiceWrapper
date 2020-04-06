@@ -15,7 +15,7 @@ namespace SimpleWebServiceWrapper
          _logger = logger;
       }
 
-      // This is just an example showing how ot have a Worker on the Windows Service
+      // This is just an example showing how to have a Worker on the Windows Service
       protected override async Task ExecuteAsync(CancellationToken stoppingToken)
       {
          while (!stoppingToken.IsCancellationRequested)

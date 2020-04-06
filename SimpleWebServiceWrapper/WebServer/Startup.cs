@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace SimpleWebServiceWrapper.WebServer
 {
@@ -18,8 +19,15 @@ namespace SimpleWebServiceWrapper.WebServer
 
       public void ConfigureServices(IServiceCollection services)
       {
-         services.Configure<KestrelServerOptions>(
-            Configuration.GetSection("Kestrel"));
+         services.Configure<KestrelServerOptions>(Configuration.GetSection("Kestrel"));
+         
+         // Required for Swagger to generate doc
+         services.AddMvc();
+
+         services.AddSwaggerGen(c =>
+         {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+         });
 
          services.AddControllers()
                  .AddJsonOptions(options =>
@@ -31,12 +39,19 @@ namespace SimpleWebServiceWrapper.WebServer
 
       public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
       {
-         if (env.IsDevelopment())
-         {
-            app.UseDeveloperExceptionPage();
-         }
+         if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
          app.UseHttpsRedirection();
+
+         // Enable middleware to serve generated Swagger as a JSON endpoint.
+         app.UseSwagger();
+
+         // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+         // specifying the Swagger JSON endpoint.
+         app.UseSwaggerUI(c =>
+         {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+         });
 
          app.UseRouting();
 
